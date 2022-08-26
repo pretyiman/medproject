@@ -1,0 +1,73 @@
+
+{% extends 'mcq/base.html' %}
+{% load static %}
+{% block head_extra %}
+<link rel='stylesheet' href="{% static 'css/testclock.css' %}">
+<script src ="{% static 'js/testclock.js' %}"></script>
+{% endblock %}
+
+{% block body_block %}
+
+
+<div class="container">
+      <div class="row">
+        <div class="col">
+
+          <div class="timer">
+            <h2>Goodluck! </h2>
+            <h1><time>00:00:00</time></h1>
+            <button class="btn btn-primary"  id="start">start</button>
+            <button  class="btn btn-primary" id="stop">stop</button>
+            <button  class="btn btn-primary" id="clear">clear</button>
+          </div>
+
+          <div class="mcq">
+          <br>
+          <form  class="mcqform" name="mcqform" method="post" action="/testresults">
+            {% csrf_token %}
+            <input type="text" hidden name="hidden_q" value="{{hidden_q}}">
+              {% for q in questions%}
+                <p> Q{{ forloop.counter }}:-  &nbsp; {{q.desciption}}  </p>
+
+            <!-- <div class="Answers"> -->
+
+
+                  <ul>
+                  {% for a in q.answers_set.all%}
+                      <!-- <li><input type="radio" name="radio" value="{{a.option}}"> {{a.option}}</li> -->
+                      <li><input type="radio" name="{{q.id}}" value="{{a.id}}"> {{a.option}}</li>
+                  {%endfor%}
+                  </ul>
+                <br>
+            {%endfor%}
+              <!-- </div> -->
+            <input type="submit" class="btn btn btn-block" value="Submit" >
+            <br>
+            </form>
+          </div>
+          </div>
+
+
+
+
+
+
+        </div>
+      </div>
+      <!-- <h2> Goodluck Time is Ticking</h2> -->
+
+      <!-- <div class="col-md-4">
+        <div class="timer align-items-center justify-content-center">
+          <h1><time>00:00:00</time></h1>
+          <button class="btn btn-primary"  id="start">start</button>
+          <button  class="btn btn-primary" id="stop">stop</button>
+          <button  class="btn btn-primary" id="clear">clear</button>
+        </div>
+    </div> -->
+{% endblock %}
+
+
+{%block body_extra%}
+<script src ="{% static 'js/testclock.js' %}"></script>
+
+{%endblock%}

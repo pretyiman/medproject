@@ -1,0 +1,96 @@
+{% extends 'mcq/base.html' %}
+{% load static %}
+<!-- <link rel='stylesheet' href="{% static 'css/mcq.css' %}"> -->
+{% block head_extra %}
+<style>
+.btn{
+  background: #6900d1 !important;
+  color: #fff !important;
+  /* margin-right: 5px; */
+  margin-bottom: 5px;
+}
+.int{
+  font-size:20px;
+  border-radius: 1px;
+  border:1px solid lightgrey;
+  /* box-shadow: 10px 10px 10px #6900d1; */
+  margin-bottom: 2px;
+  width: 100px;
+  /* display:block-inline; */
+}
+.myform {
+  margin-bottom:5px;
+  border-radius: 1px;
+  border:1px solid lightgrey;
+  box-shadow: 10px 10px 10px #6900d1;
+}
+input[type=checkbox]{
+  transform: scale(1.6);
+  margin-left:40px;
+}
+.top{
+  font-size:20px;
+  /* color: red !important; */
+}
+h5{
+  color: black;
+  text-align:center;
+  font-size:30px;
+  margin-top:15px;
+  margin-bottom:15px;
+  background-color: lightgrey;
+}
+h3{
+  border-radius: 1px;
+  text-align:center;
+  border:1px solid lightgrey;
+  box-shadow: 10px 10px 10px   #6900d1;
+}
+</style>
+
+{% endblock %}
+
+
+{% block body_block %}
+<div class="container">
+ <div class="row justify-content-center">
+  <!-- <h3>Please select Topic & Number of Questions </h3><br> -->
+   <div class="container justify-content-center ">
+     <br>
+    <h3>Please select Topic & Number of Questions </h3>
+       <!-- <form class="form-inline" id='myform' method="POST" action="/grandtest"> -->
+         <form class="myform" id='myform' method="POST" action="/grandtest">
+         {% csrf_token %}
+         {% for subject in subjects %}
+         <h5>{{subject.name}}</h5>
+          {% for topic in subject.topic_set.all %}
+          <hr align="left" width="100%">
+              <input type="checkbox"  class="checkbox" name="topic" value="{{topic.id}}" id="{{topic.id}}" 
+              onclick='
+                var checkBox = document.getElementById("{{topic.id}}");
+                var inp = document.getElementById("input{{topic.id}}");
+                if (checkBox.checked == true){inp.style.display = "";}
+                else {inp.style.display = "none";}'>
+          &nbsp;<label class="top" for="top">{{topic.name}}</label>&nbsp;&nbsp;
+              <input type="number" style="display:none" class="int" name="{{topic.id}}" id="input{{topic.id}}"  display=None value='0' min="0" max="300"></input>
+
+          {%endfor %}
+            <!-- <hr align="left" width="100%"> -->
+        {% endfor %}
+
+          <input type="submit" class="btn btn btn-block" value="Submit">
+      </form>
+
+     </div>
+  </div>
+ </div>
+
+</div>
+
+{% endblock %}
+
+{%block body_extra%}
+{%endblock%}
+
+
+<!-- var checkBox = document.getElementById("{{topic.id}}");var text = document.getElementById("input{{topic.id}}");if (checkBox.checked == true){text.style.display = "block";} else {text.style.display = "none";} -->

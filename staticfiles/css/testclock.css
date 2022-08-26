@@ -1,0 +1,35 @@
+.mcq li{
+  list-style-type: upper-alpha;
+  margin-left: 40px;
+}
+.timer {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  text-align: right;
+  font-size: 10px;
+}
+h5{
+  color: green;
+}
+.mcqform p{
+  margin-bottom: 14px;
+  box-shadow: 10px 10px;
+}
+
+.btn{
+  background: #6900d1 !important;
+  color: #fff !important;
+}
+
+.mcq p{
+  margin-bottom: 15px;
+  box-shadow: 10px 10px 5px#6900d1;
+}
+p {
+    margin: 5px 0;
+    padding: 5px;
+    border: 2px solid #6900d1;
+    border-radius: 12px;
+    font-size: 20px;
+}

@@ -1,0 +1,128 @@
+{% extends 'mcq/base.html' %}
+{% load static %}
+{% load myfilters %}
+{% block head_extra %}
+{% endblock %}
+
+
+
+{% block body_block %}
+   
+<!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"> -->
+<style>
+.container-mcq{
+    align-items:center;
+}
+.col-center{
+    margin-left: 50px;
+}
+.form-group h3{
+    text-align: left;
+}
+.subject select{
+    width: 80%;
+    padding: 5px 35px 5px 5px;
+    font-size: 16px;
+    border: 1px solid black;
+    height: 34px;
+   border-radius: 7px;
+}
+.topic select{
+    width: 80%;
+    padding: 5px 35px 5px 5px;
+    font-size: 16px;
+    border: 1px solid black;
+    height: 34px;
+   border-radius: 7px;
+}
+.question textarea{
+    width: 80%;
+}
+.option input{
+    widows: 50%;
+    align-items:center;
+    text-align: left;
+    position: flex;
+    font-size: 16px;
+}
+</style>
+
+
+<div class="container-mcq">
+    <div class="row">
+        <div class="col-center">
+            <h2>Post MCQ</h2>
+        
+            <form method="post"  id="PublicMcqForm" class="myform" 
+                data-topic-url="{% url 'ajax_load_topic' %}" novalidate>
+                {% csrf_token %}
+                <div class="form-group subject">
+                    <h3>Subject</h3>
+                    {{form.subject}}
+                </div>
+                <div class="form-group topic">
+                   <h3>Topic</h3>
+                    {{form.topic}}
+                </div>
+                <div class="form-group question">
+                    <h3>Question</h3>
+                    <!-- <label for="textarea">Question</label> -->
+                    {{form.question}}
+                </div>
+                <div class="form-group option">
+                    <P>Please mark the correct option (to help others) if you already know the answer, 
+                        if you dont have key leave all option uncheck</P>
+                    <h3>Option A</h3>
+                    {{form.option_a}}
+                    <input type="radio" value="{{form.a_is_true}}">
+                </div>
+                <div class="form-group option">
+                    <h3>Option B</h3>
+                    {{form.option_b}}
+                    {{form.b_is_true}}
+                </div>
+                <div class="form-group option">
+                    <h3>Option C</h3>
+                    {{form.option_c}}
+                    {{form.c_is_true}}
+                </div>
+                <div class="form-group option">
+                    <h3>Option D</h3>
+                    {{form.option_d}}
+                    {{form.d_is_true}}
+                </div>
+                <div class="form-group">
+                    <button name="submit" type="submit" class="btn btn-primary btn-block">Submit</button>
+                </div>
+                <!-- <table> -->
+                    <!-- {{ form}} -->
+                <!-- </table> -->
+                <!-- <button type="submit">Save</button> -->
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+    $("#id_subject").change(function () {
+        var url = $("#PublicMcqForm").attr("data-topic-url");  // get the url of the `load_cities` view
+        var subjectId = $(this).val();  // get the selected country ID from the HTML input
+
+        $.ajax({                       // initialize an AJAX request
+            url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+            data: {
+                'subject': subjectId       // add the country id to the GET parameters
+            },
+            success: function (data) {   // `data` is the return of the `load_cities` view function
+                $("#id_topic").html(data);  // replace the contents of the city input with the data that came from the server
+            }
+        });
+
+    });
+</script>
+
+
+{% endblock %}

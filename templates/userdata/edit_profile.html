@@ -1,0 +1,68 @@
+{% extends 'mcq/base.html' %}
+{% load static %}
+
+{% block head_extra %}
+<style>
+    .form-container{
+        text-align:center;
+    }
+    
+    input[type=text] {
+    width: 70%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+    margin-top: 10px;
+    }
+    .label{
+        font-size: 25px;
+    }
+    .avatar{
+        width: 300px;
+        height: 270px;
+    }
+    .submit-btn{
+    width:50%;
+    background-color: #8842d5;
+    border: none;
+    color: white;
+    text-decoration: none;
+    margin: 5px 4px;
+    cursor: pointer;  
+    }
+</style>
+{% endblock %}
+
+
+{% block body_block %}
+<div class="form-container">
+
+<h1>Edit Profile</h1>
+<form action="" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="form-group">
+        {% if request.user.profile.photo %}
+        <img src="{{request.user.profile.photo.url}}" alt="img error" class="avatar">
+        {% else %}
+        <img src="/media/p-icon.png" alt="" class="avatar">
+        {% endif %}
+        {{profile_form.photo}}
+    </div>
+    <div class="form-group"><label class="label">User Name:</label>
+    {{user_form.username}}</div>
+    <div class="form-group"><label class="label">First Name:</label>
+    {{user_form.first_name}}</div>
+    <div class="form-group"><label class="label">Last Name:</label>
+    {{user_form.last_name}}</div>
+    <div class="form-group"><label class="label">Email:</label>
+    {{user_form.email}}</div>
+    <div class="form-group"><label class="label">Date of Birth:</label>
+    {{profile_form.date_of_birth}}</div>
+    <div ><input type="submit" value="submit" class="submit-btn"></div>
+</form>
+</div>
+{% endblock %}
+
+{% block body_extra %}
+{% endblock %}

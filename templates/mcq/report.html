@@ -1,0 +1,128 @@
+{% extends 'mcq/base.html'%}
+{% load static %}
+{% load myfilters %}
+{% block head_extra%}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+<style type="text/css">
+  .btn{
+    background: #6900d1 !important;
+    color: #fff !important;
+  }
+.mcq li{
+  list-style-type: upper-alpha;
+  margin-left: 40px;
+}
+h5{
+  color: #6900d1;
+}
+p {
+    margin: 5px 0;
+    padding: 5px;
+    border: 2px solid lighgrey;
+    border-radius: 12px;
+    font-size: 20px;
+}
+.score {
+  position: -webkit-sticky;
+  margin-top:2px;
+  text-align: center;
+  color:#fff;
+  background-color:#6900d1;
+  font-size: 10px;
+  border-radius: 12px;
+  box-shadow: 10px 10px 5px#6900d1;
+}
+.mcq p{
+  border-radius: 12px;
+  border:1px solid lightgrey;
+  background-color:#fff;
+  margin-bottom: 2px;
+  box-shadow: 10px 10px 5px#6900d1;
+}
+  input[type=radio] {
+    width: 19px;
+    height: 19px;
+}
+ul{
+  margin-top: 10px;
+  font-size: 20px;
+}
+ul li{
+  font-size: 20px;
+}
+
+.mcq a{
+  text-align: center;
+  font-size: 15px;
+  color:red;
+  margin-left:50px;
+}
+.glyphicon-ok{
+  color:green;
+  font-size: 20px;
+}
+.fa-times{
+  color:red;
+  font-size: 20px;
+}
+</style>
+
+{%endblock%}
+
+
+{% block body_block %}
+
+<div class="container">
+  <div class="row">
+    <!-- <div class="col-sm">
+    </div> -->
+    <div class="col">
+      <div class="score">
+        <h2>Your Report </h2>
+        <h3>Total questions was &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{questions.count}}</h3>
+        <h3>You have attempted &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{total_attempted}} </h3>
+        <h3>Total correct ansewer &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{total_correct}} </h3>
+        <!-- {{total_correct}} out of {{total_attempted}} from {{questions.count}} -->
+      </div>
+      <hr>
+      <div class="mcq">
+
+      <form  class="mcqform" name="mcqform" method="post" action="/testresults">
+        {% csrf_token %}
+        {% for q in questions%}
+        <p> Q{{ forloop.counter }}:-  &nbsp; {{q.desciption}}  </p>
+              <ul>
+              {% for a in q.answers_set.all%}
+                  <li><input type="radio" name="{{q.id}}" value="{{a.id}}" {% if a.id|slugify == attempted|get_item:q.id%} checked="checked" {% endif %}>
+                    {{a.option}}&nbsp;{% if a.is_true %}<span class="glyphicon glyphicon-ok"></span>{%endif%}
+                    {% if a.id|slugify == attempted|get_item:q.id  and not a.is_true %} <span class="fa fa-times" aria-hidden="true"></span>{% endif %}
+                <!-- <span class="fa fa-times" aria-hidden="true"></span> -->
+                    </li>
+              {%endfor%}
+              {% for a in q.answers_set.all%}
+              {% if a.is_true %}
+              <span><p> <u> Key is {{a.option}}:- </u>&nbsp;{{a.explaination}}</p></span>{%endif%}
+              
+              {% endfor%}
+              <a href="{%url 'report_question' q.id %}">Report if you think Key is wrong</a>
+              </ul>
+            <br>
+        {%endfor%}
+        <input type="submit" class="btn btn btn-block" value="Restart" >
+        </form>
+        <br>
+      </div>
+    </div>
+    <!-- <div class="col-sm">
+    </div> -->
+  </div>
+</div>
+
+
+{% endblock %}
+
+{% block body_extra %}
+{% endblock %}

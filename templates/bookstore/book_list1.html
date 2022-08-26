@@ -1,0 +1,84 @@
+{% extends 'mcq/base.html' %}
+
+{% block body_block %}
+<!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.1/bootstrap-table.min.css"> -->
+<script src="//code.jquery.com/jquery.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.1/bootstrap-table.min.js"></script>
+
+
+<style media="screen">
+  .css-serial {
+  counter-reset: serial-number;  /* Set the serial number counter to 0 */
+}
+
+.css-serial td:first-child:before {
+  counter-increment: serial-number;  /* Increment the serial number counter */
+  content: counter(serial-number);  /* Display the counter */
+}
+</style>
+
+  <br>
+  <div class="container">
+    <div class="row"> 
+      <div class="col">
+        <div class="container">
+            <div class="input-group mb-3">
+              <input type="text" id="myInput" onkeyup="myFunction()"  class="form-control"
+              placeholder="Type Title, Author or Publisher for search" aria-label="Recipient's username" aria-describedby="button-addon2">
+              <div class="input-group-append">
+              </div>
+            </div>
+        </div>
+  
+  
+
+  <!-- <div class="container"> -->
+    <br>
+    <br>
+<!-- <center><h3>List of Contacts</h3></center> -->
+        <table class="css-serial table table-striped ">
+          <tr>
+            <th><center><h3>Books</h3></center></th>
+          </tr>
+        </table>
+        <table  id="myTable" class="css-serial table table-striped " data-toggle="table" data-classes="table table-hover table-condensed"data-striped="true"data-sort-order="desc">
+
+          <thead>
+            <tr>
+              <th class="th-sm ">Sr</th>
+              <th class="th-sm data-field="Name" data-sortable="true">Title</th>
+              <th class="th-sm data-field="Name" data-sortable="true">Writter</th>
+              <th class="th-sm data-field="Name" data-sortable="true">publisher</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for Book in book_list %}
+            <tr>
+              <td></td>
+              <td><h5><a href="{{Book.id}}">{{Book.name}}</a></h5></td>
+              <td><h5>{{Book.writter}}</h5></td>
+              <td><h5>{{Book.publisher}}</h5></td>
+            </tr>
+            {% endfor %}
+          </tbody>
+      </table>
+</div>
+</div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myTable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script>
+
+
+
+
+{% endblock %}

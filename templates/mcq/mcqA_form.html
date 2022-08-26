@@ -1,0 +1,15 @@
+{% extends 'mcq/base.html' %}
+{% load static %}
+{% block head_extra %}
+{% endblock %}
+
+
+
+{% block body_block %}
+    <form class="mcqform" name="mcqform" method="post">
+           {% csrf_token %}
+           {{form}}
+    <input type="submit" class="btn btn btn-block" value="Submit">
+    <br>
+    </form>
+{% endblock %}

@@ -1,0 +1,169 @@
+{% load static %}
+<!-- dropdow orange bg navbar -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Multi Level Dropdown</title>
+    <!-- <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet"> -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel='stylesheet' href="{% static 'css/navbarorg.css' %}">
+    <!-- <link rel='stylesheet' href="{% static 'css/bootstrap.min.css' %}"> -->
+    <style>
+        .nav-container{
+            width: 100%;
+            max-width: 117rem;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            background-color:black;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.8),rgba(0,0,0,0.8)),
+            url("{% static 'images/4.jpg' %}") center no-repeat;
+            /*background-size: cover;*/
+            }
+            .profile-img{
+                width: 5rem;
+                height:4rem;
+                display:flow-root;
+                background-size:auto 100%;
+                border-radius: 50%;
+            }
+    </style>
+    {% block head_extra %}
+    {% endblock %}
+</head>
+
+<body>
+    <!--Nav markup goes here-->
+    <header>
+        <div class="nav-container">
+            <nav>
+                <div class="menu-icon">
+                    <i class="icon ion-md-menu"></i>
+                    <i class="icon ion-md-close"></i>
+                </div>
+                <a href="{% url 'home' %}" class="logo">
+                    <i class="fa fa-heartbeat" aria-hidden="true"></i>
+                </a>
+                <ul class="nav-list">
+                    <li>
+                        <a href="{% url 'home' %}">Home</a>
+                    </li>
+                    <li>
+                        <a href="#">Portal
+                            <i class="icon ion-md-arrow-dropdown"></i>
+                        </a>
+                        <ul class="sub-menu">
+                            <li>
+                                {% comment %} <a href="{% url 'post_list' %}">Blog</a> {% endcomment %}
+                                <a href="#">Blog</a>
+                            </li>
+                            <li>
+                                <a href="#">Write
+                                    <i class="icon ion-md-arrow-dropdown"></i>
+                                </a>
+                                <ul class="sub-menu">
+                                    <li>
+                                        {% comment %} <a href="{% url 'post_new' %}">Post</a> {% endcomment %}
+                                        <a href="#">Post</a>
+                                    </li>
+                                    <li>
+                                        {% comment %} <a href="{% url 'post-question' %}">MCQ</a> {% endcomment %}
+                                        <a href="#">MCQ</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                {% comment %} <a href="{% url 'P_Mcq' %}">Open-MCQs</a> {% endcomment %}
+                                <a href="#}">Open-MCQs</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        {% comment %} <a href="{% url 'book-list' %}">Library</a> {% endcomment %}
+                        <a href="#">Library</a>
+                    </li>
+                    <li>
+                        <a href="#">Practice MCQ
+                            <i class="icon ion-md-arrow-dropdown"></i>
+                        </a>
+                        <ul class="sub-menu">
+                            <li>
+                                <a href="{% url 'single_topic' %}">Single Topic</a>
+                                {% comment %} <a href="#">Single Topic</a> {% endcomment %}
+                            </li>
+                            <li>
+                                <a href="{% url 'select_subject' %}">Multi-Topic</a>
+                                {% comment %} <a href="#">Multi-Topic</a> {% endcomment %}
+                            </li>
+                            <li>
+                                <a href="#">Past Papers</a>
+                            </li>
+                        </ul>
+                    </li>
+                    {% if request.user.is_authenticated %}
+                    <li class="move-right">
+                        <a href="#">
+                            {% if request.user.profile.photo %}
+                            <img src="{{request.user.profile.photo.url}}" alt="img error" class="profile-img">
+                            {% else %}
+                            <img src="/media/p-icon.png" alt="" class="profile-img">
+                            {% endif %}
+                            <!-- <span>{{request.user|capfirst}}</span> -->
+                        </a>
+                        {% comment %} <a href="" ><span>{{request.user|capfirst}}</span></a> {% endcomment %}
+                        <ul class="sub-menu">
+                            <li>
+                                {% comment %} <a href="{% url 'profile' %}">Profile</a> {% endcomment %}
+                                <a href="#">Profile</a>
+                            </li>
+                            <li>
+                                {% comment %} <a href="{% url 'user_logout' %}">Logout</a> {% endcomment %}
+                                <a href="#">Logout</a>
+                            </li>
+                        </ul>
+                    </li>
+                    {% else %}
+                    <li>
+                        <a href="#">
+                            <i class="icon ion-md-arrow-dropdown"></i>user
+                        </a>
+                        <ul class="sub-menu">
+                            <li>
+                                {% comment %} <a href="{% url 'user_login' %}">login</a> {% endcomment %}
+                               <a href="#">login</a>
+                            </li>
+                            <li>
+                                {% comment %} <a href="{% url 'register' %}">Signup</a> {% endcomment %}
+                                 <a href="#">Signup</a>
+                            </li>
+                        </ul>
+                    </li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <!--End nav-->
+    <div class="body-container">
+        {% block body_block %}
+        {% endblock %}
+    </div>
+
+</body>
+<script src="{% static 'js/jquery-3.0.0.js' %}"></script>
+<!-- <script src="https://code.jquery.com/jquery-3.4.1.slim.js"
+    integrity="sha256-BTlTdQO9/fascB1drekrDVkaKd9PkwBymMlHOiG+qLI=" crossorigin="anonymous"></script> -->
+<script>
+    const selectElement = (element) => document.querySelector(element);
+
+        document.querySelectorAll('.menu-icon').forEach(item => {
+            item.addEventListener('click', event => {
+                selectElement('nav').classList.toggle('active');
+            })
+        });
+
+</script>
+{%block body_extra%}
+{%endblock%}
+</html>

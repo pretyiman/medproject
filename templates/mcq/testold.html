@@ -1,0 +1,116 @@
+
+{% extends 'mcq/base.html' %}
+
+{% block body_block %}
+<style type="text/css">
+.mcq li{
+  list-style-type: upper-alpha;
+
+}
+.timer {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  text-align: right;
+
+  font-size: 10px;
+}
+h5{
+  color: green;
+}
+.mcqform{
+border-width:2px;
+border-style:solid;
+border-color:black;
+}
+</style>
+<div class="container">
+  <div class="row">
+    <div class="col-sm">
+    </div>
+    <div class="col-md-8">
+      <div class="timer align-items-center justify-content-center">
+        <h1><time>00:00:00</time></h1>
+        <button class="btn btn-primary"  id="start">start</button>
+        <button  class="btn btn-primary" id="stop">stop</button>
+        <button  class="btn btn-primary" id="clear">clear</button>
+      </div>
+      <h2> Goodluck Time is Ticking</h2>
+      <div class="mcq">
+      <br>
+      <form name="mcqform" method="post" action="/testresults">
+        {% csrf_token %}
+        <input type="text" hidden name="hidden_q" value="{{hidden_q}}">
+        <div class="question">
+          {% for q in questions%}
+            <p>{{ forloop.counter }} &nbsp; {{q.desciption}}  </p>
+        </div>
+        <div class="Answers">
+
+
+              <ul>
+              {% for a in q.answers_set.all%}
+                  <!-- <li><input type="radio" name="radio" value="{{a.option}}"> {{a.option}}</li> -->
+                  <li><input type="radio" name="{{q.id}}" value="{{a.id}}"> {{a.option}}</li>
+              {%endfor%}
+              </ul>
+            <br>
+        {%endfor%}
+          </div>
+        <input type="submit" class="btn btn-primary btn-block" value="Submit" >
+        </form>
+      </div>
+    </div>
+    <div class="col-sm">
+    </div>
+  </div>
+</div>
+
+
+
+
+<script type="text/javascript">
+  var h1 = document.getElementsByTagName('h1')[0],
+    start = document.getElementById('start'),
+    stop = document.getElementById('stop'),
+    clear = document.getElementById('clear'),
+    seconds = 0, minutes = 0, hours = 0,
+    t;
+
+function add() {
+    seconds++;
+    if (seconds >= 60) {
+        seconds = 0;
+        minutes++;
+        if (minutes >= 60) {
+            minutes = 0;
+            hours++;
+        }
+    }
+
+    h1.textContent = (hours ? (hours > 9 ? hours : "0" + hours) : "00") + ":" + (minutes ? (minutes > 9 ? minutes : "0" + minutes) : "00") + ":" + (seconds > 9 ? seconds : "0" + seconds);
+
+    timer();
+}
+function timer() {
+    t = setTimeout(add, 1000);
+}
+timer();
+
+
+/* Start button */
+start.onclick = timer;
+
+/* Stop button */
+stop.onclick = function() {
+    clearTimeout(t);
+}
+
+/* Clear button */
+clear.onclick = function() {
+    h1.textContent = "00:00:00";
+    seconds = 0; minutes = 0; hours = 0;
+}
+</script>
+
+{% endblock %}

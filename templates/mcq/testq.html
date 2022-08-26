@@ -1,0 +1,45 @@
+{% extends 'mcq/base.html' %}
+{% load static %}
+
+
+{% block body_block %}
+
+<!-- <form action="" method="POST">
+    {% csrf_token %}
+    question form <br>
+    {{question_form.as_p}}
+    answer form
+    {{answer_form.as_p}}
+    <input type="submit" class="button btn-primary">
+</form> -->
+<form action="" method="POST" id="McqForm" data-topic-url="{% url 'ajax_load_topic' %}" novalidate>
+    {% csrf_token %}
+    {{form.as_p}}
+    question form <br>
+    {{question_form.as_p}}
+    answer form
+    {{formset.as_p}}
+    <input type="submit" class="button btn-primary">
+</form>
+
+{% endblock %}
+{%block body_extra%}
+
+<script>
+    $("#id_subject").change(function () {
+        var url = $("#McqForm").attr("data-topic-url");  // get the url of the `load_cities` view
+        var subjectId = $(this).val();  // get the selected country ID from the HTML input
+
+        $.ajax({                       // initialize an AJAX request
+            url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+            data: {
+                'subject': subjectId       // add the country id to the GET parameters
+            },
+            success: function (data) {   // `data` is the return of the `load_cities` view function
+                $("#id_topic").html(data);  // replace the contents of the city input with the data that came from the server
+            }
+        });
+
+    });
+</script>
+{%endblock%}

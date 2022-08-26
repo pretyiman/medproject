@@ -1,0 +1,24 @@
+{% extends 'mcq/base.html' %}
+{% load static %}
+{% block body_block %}
+<style type="text/css">
+a {
+  color: blue;
+}
+</style>
+<center>
+<div class=class="form-horizontal">
+  <br>
+  <u><h3>Detail</h3></u>
+  <ul><h5>Book Title:<font color="blue">{{book.name}}</font></h5> </ul>
+  <ul><h5>Author: <font color="blue">{{book.writter}}</font></h5> </ul>
+  <ul><h5>Catagory: <font color="blue">{{book.catagory}}</font></h5> </ul>
+  <ul><h5>publisher: <font color="blue"> {{book.publisher}}</font></h5></ul>
+  <ul><h5>Publish Date: <font color="blue"> {{book.publish_date}}</font></h5></ul>
+
+  <ul><h5>Book Url: <font color="blue"> <a href = "{% url 'readbook' book.id %}">{{book.book}}</a></font></h5></ul>
+  <!-- <ul><h5>Book Url: <font color="blue"> <a href = "/media/{{book.book}}">{{book.book}}</a></font></h5></ul> -->
+
+</div>
+</center>
+{% endblock %}

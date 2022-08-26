@@ -1,0 +1,57 @@
+{% extends 'mcq/base.html' %}
+
+{% block body_block %}
+
+<div class="container">
+<div class="row">
+  <div class="col">
+    <h3>
+      {% if not form.instance.pk %}
+      Create Item
+      {% else %}
+      Update Item
+      {% endif %}
+    </h3>
+    <form method="POST" action="#">
+      {% csrf_token %}
+      <!-- {{form}} -->
+      <div class="form-group">
+        <label for="name">Title</label>
+        {{form.name}}
+      </div>
+      <div class="form-group">
+        <label for="name">Name:</label>
+        {{form.writer}}
+      </div>
+      <div class="form-group">
+        <label for="Catagory">Catagory:</label>
+        {{form.Catagory}}
+      </div>
+      <div class="form-group">
+        <label for="Sub_Catagory">Sub-Catagory:</label>
+        {{form.Sub_Catagory}}
+      </div>
+      <div class="form-group">
+        <label for="Sub_Catagory">Sale Price:</label>
+        {{form.Sale_Price}}
+      </div>
+      <div class="form-group">
+        <label for="Stock">Stock:</label>
+        {{form.Stock}}
+      </div>
+      <div class="form-group">
+        <label for="warehouse">Warehouse</label>
+        {{form.Warehouse}}
+      </div>
+      <div class="form-group">
+        <label for="Rack">Rack:</label>
+        {{form.Rack}}
+      </div>
+      <div class="form-group">
+        <input type="Submit" class="btn btn-primary btn-block mt-2" value="Submit">
+      </div>
+    </form>
+  </div>
+</div>
+</div>
+{% endblock %}

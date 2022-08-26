@@ -1,0 +1,177 @@
+{% extends 'mcq/base.html' %}
+{% load static %}
+{% block head_extra %}
+<link rel='stylesheet' href="{% static 'css/blog.css' %}">
+<!-- <script src ="{% static 'js/blog.js' %}"></script> -->
+<style type="text/css">
+          .row{
+            position: relative;
+          }
+          .post{
+            width: 100%;
+            max-width: 98rem;
+            padding: 5rem;
+            background-color: #ffff;
+            box-shadow: 0 1.4rem 8rem rgba(0, 0, 0, 0.2);
+            align-items: center;
+            border-radius: .8rem;
+          }
+          .comment-form .myForm1{
+            width: 80%;
+            margin-left: 50px;
+            margin-right: 50px;
+          }
+          .comment-form{
+            margin-top: 5px;
+            box-shadow: 0 1.4rem 8rem rgba(0, 0, 0, 0.2);
+          }
+          .postcontent{
+            font-size: 25px;
+          }
+          .main-comment-section{
+            margin-top: 5px;
+          }
+          .comment-text{
+            margin-left: 15px;
+          }
+          .replied-comments{
+            margin-left: 50px;
+          }
+          .reply-btn{
+            font-size: 15px;
+            padding: 0%;
+          }
+          .btn-primary{
+            margin-top: 2px;
+            
+          }
+</style>
+{% endblock %}
+
+
+{% block body_block %}
+
+<div class="container">
+<!-- <div class="row">
+  <div class="col-2"></div>
+  <div class="col-8 justify-content-center"> -->
+    <div class="post">
+  <center><h3>{{ post.title }}</h3></center>
+        <center>{{ post.published_date }}</center>
+        <hr>
+      <p class='postcontent' >{{ post.text| safe }}</p><br>
+        &nbsp; &nbsp;<a class="fa fa-pencil-square-o fa-1x" aria-hidden="true" href="{% url 'post_edit' pk=post.pk %}">Edit</a> |
+        <a class="fa fa-trash fa-1x" aria-hidden="true" href="{% url 'post_remove' pk=post.pk %}">Delete </a>
+         
+        </div>
+        <div class="comment-form mt-4">
+          <div class="container-form">
+          <div class="row" style="margin-left: 50px;">
+            <h3>Comments {{comments.count}}</h3>
+           </div> 
+          </div>
+        <form  class= "myForm1" id="myForm1" method="POST">
+          {% csrf_token %}
+          {{comment_form.as_p}}
+          {% if request.user.is_authenticated %}
+          <input type="submit" value="Submit" class="submit-btn btn btn-block btn-primary">
+          {% endif %}
+        </form>
+        
+        <div class="main-comment-section" style="margin-left: 50px;">
+          
+          {% for comment in comments %}
+          <blockquote class="blockquote comment-text">
+            <p class="mb-0">{{ comment.comment}}</p>
+            <footer class="blockquote-footer">by<cite
+                title="Source Title"><strong>{{ comment.author|capfirst }}</strong>&nbsp;{{ comment.created_date }} {{comment.replies.count}}</cite>
+                <button type="button" id="{{comment.id}}" name="button" class="reply-btn btn btn-outline-dark"> Reply</button>
+            </footer>
+          </blockquote>
+<hr>
+         <div  class="replied-comments container-fluid mt-2"style="display: none;"> 
+          <!-- style="display: none;" -->
+            {% for reply in comment.replies.all %}
+            <blockquote class="blockquote">
+              <p class="mb-0"> <small>{{ reply.comment}}</p></small> 
+              <footer class="blockquote-footer">by<cite
+                  title="Source Title"><small><strong>{{ reply.author|capfirst }}</strong></small></cite>
+              </footer>
+            </blockquote>
+            {% endfor %}
+            <div class="form-group row">
+              <form method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="comment_id" value="{{comment.id}}">
+                {{comment_form.as_p}}
+                {% if request.user.is_authenticated %}
+                <input type="submit" value="Reply" class="btn btn-outline-dark">
+                {% else %}
+                <input type="submit" value="Reply" class="btn btn-outline-dark">
+                {% endif %}
+              </form>
+              </div>
+          </div>
+          {% endfor %}
+          </ul>
+          </div>
+          </div>
+          </div>
+    <!-- <div class="col-2"></div> -->
+  <!-- </div> -->
+     
+{% endblock %}
+
+{% block body_extra %}
+<!-- <script>
+     $(document).ready(function () {            //when de html document is loaded
+        $(".deleteButton").each(function () {  //for each button with class *deleteButton*
+          var button = this;                //we take the html element
+          $(button).click(function () {      //and we bind an eventlistener onclick
+            alert($(button).attr("id"));  //when the user clicks we tell him the id 
+          });
+        });
+
+        $(".reply-btn").each(function () {
+          var button = this;
+          document.getElementById("vlaue")
+          $(button).click(function () {
+            alert($(button).attr("id"));
+            $(".replied-comments value").fadeToggle();
+          });
+        });
+      });
+</script> -->
+<!-- working fuction but show all reply form -->
+<!-- <script>
+  $(document).ready(function(){
+    $(".reply-btn").click(function() {
+    $(".replied-comments").show();
+    });
+  })
+</script> -->
+<!-- end working fuction but show all reply form -->
+
+
+<!-- fadeToggle works but show all form -->
+<script>          
+  $(document).ready(function () {            //when de html document is loaded
+    $(".deleteButton").each(function () {  //for each button with class *deleteButton*
+      var button = this;                //we take the html element
+      $(button).click(function () {      //and we bind an eventlistener onclick
+        alert($(button).attr("id"));  //when the user clicks we tell him the id 
+      });
+    });
+
+    $(".reply-btn").each(function () {
+      var button = this;
+      $(button).click(function () {
+        $(".replied-comments").fadeToggle();
+      });
+    });
+  });
+</script>
+<!-- fadeToggle works but show all form -->
+
+
+{%endblock%}

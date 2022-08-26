@@ -1,0 +1,17 @@
+.btn{
+background: #6900d1 !important;
+color: #fff !important;
+margin-right: 5px;
+margin-bottom: 10px;
+}
+.test{
+  font-size:25px;
+  border-radius: 1px;
+  border:1px solid lightgrey;
+  box-shadow: 10px 10px 10px #6900d1;
+  /* margin-bottom: 50px; */
+}
+input[type=checkbox]{
+  transform: scale(1.5);
+  margin-left: 15px;
+}

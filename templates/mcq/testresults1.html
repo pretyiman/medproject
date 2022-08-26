@@ -1,0 +1,42 @@
+{% extends 'mcq/base.html'%}
+{%load static %}
+
+
+{% block body_block %}
+<style type="text/css">
+.mcq li{
+  list-style-type: upper-alpha;
+}
+
+</style>
+<div class="container">
+  <div class="row">
+    <div class="col-sm">
+    </div>
+    <div class="col-md-8">
+      <div class="mcq">
+      <h1>  Your Report </h1>
+      <form name="mcqform" method="post" action="/testresults">
+        {% csrf_token %}
+      {% for q in questions%}
+        <p>{{ forloop.counter }}- {{q.desciption}}  </p>
+              <ul>
+              {% for a in q.answers_set.all%}
+                  <!-- <li><input type="radio" name="radio" value="{{a.option}}"> {{a.option}}</li> -->
+                  <li><input type="radio" name="{{q.id}}" value="{{a.id}}"> {{a.option}} {% if a.is_true %} <<{%endif%}</li>
+
+              {%endfor%}
+              </ul>
+            <br>
+        {%endfor%}
+        <input type="submit" value="Submit" >
+        </form>
+      </div>
+    </div>
+    <div class="col-sm">
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}

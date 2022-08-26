@@ -1,0 +1,71 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>MedWiki</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <link rel='stylesheet' href="{% static 'css/pen.css' %}">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
+
+    {% block head_extra %}
+    {% endblock %}
+  </head>
+  <body>
+      <header>
+        <div class="menu">
+          <input type="checkbox" class="toggler" id="checkbox">
+          <div class="hamburger">
+            <div></div>
+          </div>
+          <div class="logo"><a href="{% url 'home' %}">MedWiki</a></div>
+          <div class="navbar">
+            <div class="nav-items">
+              <ul>
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li>
+                  <div class="drop1">
+                    <input type="checkbox" id="drop1">
+                    <label for="drop1"><a href="">Quiz<i class="material-icons">keyboard_arrow_down</i></a></label>
+                    <div class="drop-menu">
+                      <a href="{% url 'post-question' %}">Post Mcq</a>
+                      <a href="{% url 'P_Mcq' %}">Public Mcq</a>
+                      <a href="{% url 'generate_quiz' %}">Single  Topic Test</a>
+                      <a href="{% url 'select_subject' %}">Multi  Topic Test</a>
+                    </div>
+                  </div>
+                </li>
+                <li>
+                <div class="drop2">
+                  <input type="checkbox" id="drop2">
+                  <label for="drop1"><a href="">Blog<i class="material-icons">keyboard_arrow_down</i></a></label>
+                  <div class="drop-menu">
+                    <a href="{% url 'post_new' %}">Create Post</a>
+                    <a href="{% url 'post_list' %}">Latest Post</a>
+                  </div>
+                </li>
+                <li><a href="{% url 'book-list' %}">Library</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      {% block sectionheader_block %}
+      {% endblock %} 
+      <!-- </header>
+    </section> -->
+    {% block sectionheader1_block %}
+    {% endblock %}
+
+    {% block body_block %}
+    {% endblock %}
+  </body>
+  {%block body_extra%}
+  {%endblock%}
+</html>

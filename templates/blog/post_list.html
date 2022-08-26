@@ -1,0 +1,32 @@
+{% extends 'mcq/base.html' %}
+{% load static %}
+{% block head_extra %}
+<!-- <link rel='stylesheet' href="{% static 'css/post_list.css' %}"> -->
+<!-- <script src ="{% static 'js/blog.js' %}"></script> -->
+<style type="text/css">
+
+.list-post{
+   width: 100%;
+   max-width: 98rem;
+   top: 2rem;
+   background-color: #ffff;
+   box-shadow: 0 1.4rem 8rem rgba(0, 0, 0, 0.2);
+   align-items: center;
+   border-radius: .8rem;
+}
+</style>
+
+{% endblock %}
+{% block body_block %}
+    <div class="list-post">
+      {% for post in post_list %}
+        <h1><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h1>
+        <div class="date">
+            <p>Published on: <strong>{{ post.published_date|date:"D M Y"}}</strong></p>
+            <p>Author <strong>{{post.author}}</strong></p>
+        </div>
+        <a href="{% url 'post_detail' pk=post.pk %}">Comments: {{ post.comments.all.count }}</a>
+        <hr>
+        {% endfor %}
+    </div>
+{% endblock %}

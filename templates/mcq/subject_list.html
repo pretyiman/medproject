@@ -1,0 +1,86 @@
+{% extends 'mcq/base.html' %}
+{% load static %}
+
+
+
+{% block head_extra %}
+<link rel='stylesheet' href="{% static 'css/mcq.css' %}">
+<!-- <link rel='stylesheet' href="{% static 'css/style.css' %}"> -->
+
+<style>
+  .myform {
+  margin-bottom:5px;
+  border-radius: 1px;
+  border:1px solid lightgrey;
+  box-shadow: 10px 10px 10px #6900d1;
+}
+  .btn{
+background: #6900d1 !important;
+color: #fff !important;
+margin-right: 5px;
+margin-bottom: 10px;
+}
+h2{
+  border-radius: 1px;
+  text-align:center;
+  margin-bottom:5px;
+   border:1px solid lightgrey;
+  box-shadow: 10px 10px 10px   #6900d1;
+}
+
+.test{
+  font-size:25px;
+  border-radius: 1px;
+  border:1px solid lightgrey;
+  box-shadow: 10px 10px 10px #6900d1;
+  /* margin-bottom: 50px; */
+}
+input[type=checkbox]{
+  transform: scale(1.5);
+  margin-left: 15px;
+}
+
+</style>
+{% endblock %}
+
+
+{% block body_block %}
+<div class="container">
+
+
+ <div class="row">
+   <!-- <div class="col -sm">
+   </div> -->
+
+     <div class="col">
+     <br>
+        <h2>Please select Subject</h2>
+        <div class="test">
+
+
+        <form class="form" id='myform' method="POST">
+          {% csrf_token %}
+          {% for subject in subjects %}
+
+          <input  class="styled-checkbox" type="checkbox" name="subject" value="{{subject.id}}">&nbsp;
+
+          {{subject.name}}
+
+          <br>
+
+          {% endfor %}
+          <!-- <input type="submit" value="Submit"> -->
+          <input type="submit" class="btn btn btn-block" value="Submit">
+        </form>
+     </div>
+     </div>
+    <!-- <div class="col -sm">
+   </div> -->
+ </div>
+</div>
+
+
+{% endblock %}
+
+{%block body_extra%}
+{%endblock%}

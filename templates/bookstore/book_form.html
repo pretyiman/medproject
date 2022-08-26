@@ -1,0 +1,15 @@
+{% extends 'mcq/base.html' %}
+{% block body_block %}
+<div class="container">
+  <div class="row">
+    <div class="col-sm">
+    </div>
+    <div class="col-sm"><br>
+      <form action="#" method="post" enctype="multipart/form-data">
+        {% csrf_token %} {{form}}<br>
+        <input type="Submit" class="btn btn-primary btn-block" value="Upload">
+    </form>
+    </div>
+    <div class="col-sm">
+    </div>
+{% endblock %}

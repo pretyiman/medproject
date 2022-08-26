@@ -1,0 +1,63 @@
+{% extends 'mcq/base.html' %}
+
+{% block head_extra %}
+<!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.1/bootstrap-table.min.css"> -->
+<script src="//code.jquery.com/jquery.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.1/bootstrap-table.min.js"></script>
+
+
+<style media="screen">
+  .css-serial {
+    counter-reset: serial-number;
+    /* Set the serial number counter to 0 */
+  }
+
+  .css-serial td:first-child:before {
+    counter-increment: serial-number;
+    /* Increment the serial number counter */
+    content: counter(serial-number);
+    /* Display the counter */
+  }
+  .col{
+    font-size: 20px;
+    background-color: #ffff;
+    box-shadow: 0 1.4rem 8rem rgba(0, 0, 0, 0.2);
+  }
+  .col li{
+    margin-left: 50px;
+  }
+</style>
+{% endblock %}
+
+{% block body_block %}
+
+
+  <br>
+<div class="container">
+  <div class="row justify-content-center"> 
+    <div class="col">
+<!-- <center><h3>List of Mcq</h3></center> -->
+        {% for mcq in mcq %}
+        <p>{{mcq.question}}</p>
+        <ul>
+         
+             <li>A.{{mcq.option_a}}</li>
+             <li>B.{{mcq.option_b}}</li>
+             <li>C.{{mcq.option_c}}</li>
+             <li>D.{{mcq.option_c}}</li>
+             <li>Key:-{{mcq.answer}}</li>
+          
+        </ul>
+        <hr>
+        {%endfor%}
+          
+        </div>
+    </div>
+</div>
+
+
+
+
+
+{% endblock %}

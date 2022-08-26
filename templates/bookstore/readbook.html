@@ -1,0 +1,25 @@
+{% extends 'mcq/base.html' %}
+{% load static %}
+
+{% block body_block %}
+  <link rel="stylesheet" href="  https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.3.200/pdf_viewer.css">
+    <embed src="{{file_url}}" type="application/pdf" width= "500" height= "375">
+<iframe src="https://drive.google.com/viewerng/viewer?url={{file_url}}/fileview?id=0B5ImRpiNhCfGZDVhMGEyYmUtZTdmMy00YWEyLWEyMTQtN2E2YzM3MDg3MTZh&hl=en&pid=explorer&efh=false&a=v&chrome=false&embedded=true" frameborder="0"></iframe>
+
+
+      <iframe src='https://view.officeapps.live.com/op/embed.aspx?src={{file_url}}' width='500px' height='500px' frameborder='0'>
+      </iframe>
+-----------------------<br>
+<iframe width="560" height="315"  src="{{file_url}}" type="application/pdf" frameborder="0" allowfullscreen></iframe>
+
+----------------
+<object data="{{file_url}}" type="application/pdf" width="100%" height="100%">
+  <p>Alternative text - include a link <a href="myfile.pdf">to the PDF!</a></p>
+</object>
+<script type="text/javascript">
+  var encodedUrl = encodeURIComponent("{{file_url}}");
+  var iFrameUrl = 'https://docs.google.com/viewer?url=' + encodedUrl + '&embedded=true';
+</script>
+<iframe src='https://docs.google.com/viewer?url=http://127.0.0.1:8000/media/Hematology.pdf&embedded=true'></iframe>
+
+{%endblock%}

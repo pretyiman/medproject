@@ -1,0 +1,40 @@
+{% extends 'mcq/base.html' %}
+{% load static %}
+{% block head_extra %}
+<link rel='stylesheet' href="{% static 'css/blog.css' %}">
+<!-- <script src ="{% static 'js/blog.js' %}"></script> -->
+<style type="text/css">
+          .row{
+            position: relative;
+          }
+          .btn{
+            background: #6900d1 !important;
+            color: #fff !important;
+            margin-right: 5px;
+            margin-bottom: 10px;
+          }
+          .post-form{
+            box-shadow: 10px 10px 15px #6900d1;
+          }
+
+</style>
+{% endblock %}
+{% block body_block %}
+
+<div class="row">
+  <div class="col-sm">
+  </div>
+        <div class="col-md-8">
+    <h1>New comment</h1>
+    <form method="POST" class="post-form">
+    {% csrf_token %}
+    {{form.as_p}}
+    <button type="submit" class="save btn btn-default">Post Comment</button>
+    </form>
+  </div>
+<div class="col-sm">
+</div>
+</div>
+    <script>var editor = new MediumEditor('.editable');</script>
+
+{% endblock %}

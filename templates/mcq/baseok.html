@@ -1,0 +1,84 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>test</title>
+    <!-- <link rel="stylesheet" href="style.css"> -->
+    <!-- <link rel='stylesheet' href="{% static 'css/bootstrap.min.css' %}"> -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+    <!-- <script src ="{% static 'js/bootstrap.min.js' %}"></script> -->
+    <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script> -->
+
+    <!-- <link rel='stylesheet' href="{% static 'css/style.css' %}"> -->
+    <link rel='stylesheet' href="{% static 'css/newnav.css' %}">
+    <!-- <script src ="{% static 'js/my.js' %}"></script> -->
+    <!-- <script src="{% static 'js/nav.js' %}"></script> -->
+    {% block head_extra %}
+    {% endblock %}
+  </head>
+  <body>
+        <nav class="navbar navbar-expand-lg my-navbar">
+          <a class="navbar-brand logo" href="{% url 'home' %}">MedWiki</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            <!-- <span class="dark-blue-text"><i class="fas fa-bars fa-1x"></i></span> -->
+          </button>
+        
+          <ul class="collapse navbar-collapse coll" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item active">
+                <a class="nav-link" href="{% url 'home' %}">Home</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">Quiz Practice</a>
+                <ul class="dropdown-menu mega-menu" aria-labelledby="navbarDropdown">
+                  {% comment %} <a class="dropdown-item" href="{% url 'generate_quiz' %}">Single-Topic</a> {% endcomment %}
+                  <a class="dropdown-item" href="{% url 'select_subject' %}">Multi-Topic</a>
+                  <!-- <div class="dropdown-divider"></div> -->
+                  <!-- <a class="dropdown-item" href="#">Something else here</a> -->
+                </ul>
+              </li>
+              <li class="nav-item">
+                {% comment %} <a class="nav-link" href="{% url 'book-list' %}">Library</a> {% endcomment %}
+              </li>
+              <!-- <li class="nav-item">
+                <a class="nav-link" href="#">Link</a>
+              </li> -->
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#"  data-toggle="dropdown">
+                  Blog
+                </a>
+                <ul class="dropdown-menu mega-menu" aria-labelledby="navbarDropdown">
+                  {% comment %} <a class="dropdown-item" href="{% url 'post_new' %}">Create Post</a> {% endcomment %}
+                  <a class="dropdown-item" href="#">Create MCQ</a>
+                  {% comment %} <a class="dropdown-item" href="{% url 'post_draft_list' %}">Draft</a> {% endcomment %}
+                  <!-- <div class="dropdown-divider"></div> -->
+                  {% comment %} <a class="dropdown-item" href="{% url 'post_list' %}">Post List</a> {% endcomment %}
+                </ul>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#" tabindex="-1" aria-disabled="true">Conversation</a>
+              </li>
+            </ul>
+            <!-- <form class="form-inline my-2 my-lg-0">
+              <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form> -->
+          </div>
+        </nav>
+    {% block sectionheader_block %}
+    {% endblock %}
+    {% block sectionheader1_block %}
+    {% endblock %}
+
+    {% block body_block %}
+    {% endblock %}
+  </body>
+  {%block body_extra%}
+  {%endblock%}
+</html>

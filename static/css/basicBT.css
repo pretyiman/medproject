@@ -1,0 +1,23 @@
+*{
+  margin: 0;
+  padding: 0;
+}
+
+.dropdown{
+    text-align: center;
+}
+.dropdown a:hover{
+    text-decoration: underline;
+    display: block;
+    transition: 0.5s;
+}
+.dropdown:hover .dropdown-menu {
+    display: grid;
+}
+.navbar-nav{
+ margin-right: 50px;
+}
+.navbar-nav .nav-item .nav-link:hover{
+    text-decoration: underline;
+}
+
